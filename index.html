@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Data Retrieval from API</title>
+  <script src="js/angular.js"></script>
+  <script src="js/fetch.js"></script>
+</head>
+<body>
+<div ng-controller="myCtrl">
+	<h1>{{seasons.Title}}</h1>
+	<h3>Season: {{seasons.Season}}</h3>
+	        <div class="radio">Sort By:
+            <label>
+                <input type="radio" name="Title" value="Title" ng-model="sortby">
+                Title
+            </label>
+
+            <label>
+                <input type="radio" name="imdbRating" value="imdbRating" ng-model="sortby">
+                IMDB Rating
+            </label><br>
+			    <label> Title by First Letter: </label>
+			    <select ng-model="initial" ng-change="initialFunc()">
+ 				     <option ng-repeat="option in chars" value="{{option.value}}">{{option.name}}</option>
+			    </select><br>
+			    <button ng-click="default()" ng-show="showDefault">Show All</button>
+            </div>
+	<table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Episode </th>
+                <th>IDBM rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="episode in seasons.Episodes | orderBy: sortby | filter:titleInit">
+                <td>{{episode.Episode}}</td>
+                <td>{{episode.Title}}</td>
+                <td>{{episode.imdbRating}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
